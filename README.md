@@ -1,9 +1,10 @@
-# Heartbreak Ink — Animation Engine (Phase 1 MVP)
+# Heartbreak Ink — Animation Engine
 
 URGENT MVP scaffold for: **single character + single voice line + lip sync + MP4 export**.
 
 ## What’s Included
 
+### Phase 1: MVP
 - **Vite + React Three Fiber + Drei** app for live preview
 - **Remotion composition** for MP4 rendering
 - `Character.jsx`:
@@ -18,6 +19,14 @@ URGENT MVP scaffold for: **single character + single voice line + lip sync + MP4
 - Demo scene with centered character, grounded shadows, cinematic background
 - `manifest.json` scene config
 
+### Phase 2: Theatre.js Integration
+- **Visual Timeline Editor**: Theatre.js Studio (loads in dev mode)
+- **Keyframeable Components**:
+  - `TheatreCamera`: Animate position, rotation, FOV
+  - `TheatreLights`: Animate intensity, color, position of 3-point lights
+  - `TheatreCharacter`: Animate character transform
+- **Remotion Sync**: Maps Remotion frame to Theatre timeline position for perfect sync
+
 ## Project Path
 
 `projects/animation-engine/`
@@ -30,7 +39,8 @@ npm install
 npm run dev
 ```
 
-Open the Vite URL in browser.
+Open the Vite URL in browser. Theatre Studio will appear as an overlay.
+Press `Space` to play/pause. Use the timeline to keyframe properties.
 
 ## Render MP4
 
@@ -38,15 +48,18 @@ Open the Vite URL in browser.
 npm run render
 ```
 
-Output:
+This renders the default MVP demo.
 
-`out/demo.mp4`
+To render the Theatre demo:
 
-## Notes
+```bash
+npx remotion render remotion/index.jsx Theatre_Demo out/theatre-demo.mp4
+```
 
-- Current model URL is a **placeholder ReadyPlayerMe GLB**:
-  - `https://models.readyplayer.me/64f1a7143f2f95f8cfc4f0b5.glb`
-- Audio asset is currently:
-  - `public/assets/demo-line.wav`
-- For production-quality lip sync, replace with viseme timeline / Rhubarb in Phase 2.
-- If browser blocks autoplay in `dev`, click once in the page to unlock audio.
+## Theatre.js Workflow
+
+1.  **Open Studio**: Run `npm run dev` and open the browser.
+2.  **Select Object**: Click on an object in the 3D scene or select it from the Outline panel in Theatre Studio.
+3.  **Keyframe**: Right-click a property in the details panel to "Sequence" it, then scrub the timeline and adjust values.
+4.  **Save**: Theatre automatically saves state to local storage. To persist changes to the repo, click "Export" in the Studio project menu and save the JSON to `src/theatre/state.json` (or similar).
+5.  **Commit**: Commit the JSON file to git.
