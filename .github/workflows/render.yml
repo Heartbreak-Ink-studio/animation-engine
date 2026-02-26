@@ -1,0 +1,38 @@
+name: Render MP4
+on:
+  workflow_dispatch:
+    inputs:
+      scene:
+        description: 'Scene composition ID (e.g. HBIDemo)'
+        required: true
+        default: 'HBIDemo'
+      output:
+        description: 'Output filename (e.g. demo.mp4)'
+        required: true
+        default: 'demo.mp4'
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Ensure Remotion browser
+        run: npx remotion browser ensure
+
+      - name: Render video
+        run: npx remotion render remotion/index.jsx ${{ github.event.inputs.scene }} out/${{ github.event.inputs.output }}
+
+      - name: Upload MP4
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.output }}
+          path: out/${{ github.event.inputs.output }}
+          retention-days: 30
