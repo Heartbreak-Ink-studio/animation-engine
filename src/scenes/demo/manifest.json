@@ -1,0 +1,11 @@
+{
+  "id": "demo-scene-001",
+  "name": "Heartbreak Ink Demo Scene",
+  "characterModel": "https://models.readyplayer.me/64f1a7143f2f95f8cfc4f0b5.glb",
+  "audio": "/assets/demo-line.wav",
+  "camera": {
+    "position": [0, 1.35, 3.2],
+    "fov": 32
+  },
+  "notes": "Phase 1 MVP demo. Replace model/audio URLs in Phase 2 tooling."
+}
